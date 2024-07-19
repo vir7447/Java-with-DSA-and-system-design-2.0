@@ -1,0 +1,247 @@
+                                                               Assignment 1
+
+Q1. Write a program to sort an array in descending order using bubble sort. Input Array {3,5,1,6,0} 
+Output Array: {6, 5, 3, 1, 0} 
+public class BubbleSortDescending {
+
+    public static void main(String[] args) {
+        int[] arr = {3, 5, 1, 6, 0};
+        bubbleSort(arr);
+
+        System.out.println("Sorted array in descending order: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        boolean swapped;
+
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] < arr[j + 1]) {
+                    swap(arr, j, j + 1);
+                    swapped = true;
+                }
+            }
+            // Optimization: If no elements were swapped, the array is already sorted
+            if (!swapped) {
+                break;
+            }
+        }
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+Q2. WAP to sort an array in descending order using selection sort 
+Input Array {3,5,1,6,0} 
+Output Array: {6, 5, 3, 1, 0}
+
+ans.  public class SelectionSortDescending {
+
+    public static void main(String[] args) {
+        int[] arr = {3, 5, 1, 6, 0};
+        selectionSort(arr);
+
+        System.out.println("Sorted array in descending order: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+
+    public static void selectionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            int maxIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] > arr[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+            if (maxIndex != i) {
+                swap(arr, i, maxIndex);
+            }
+        }
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+Q3. WAP to sort an array in decreasing order using insertion sort 
+Input Array {3,5,1,6,0} 
+Output Array: {6, 5, 3, 1, 0} 
+
+public class InsertionSortDescending {
+
+    public static void main(String[] args) {
+        int[] arr = {3, 5, 1, 6, 0};
+        insertionSort(arr);
+
+        System.out.println("Sorted array in descending order: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+
+    public static void insertionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int newElement = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] < newElement) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = newElement;
+        }
+    }
+}
+
+Q4. Find out how many pass would be required to sort the following array in decreasing order using bubble sort 
+Input Array {3,5,1,6,0} 
+
+ans. In the worst case scenario, bubble sort requires  n-1 passes to sort an array of size n in descending order (or ascending order).
+
+Q5. Find out the number of iterations to sort the array in descending order using selection sort. Input Array {3,5,1,6,0}
+ans. For the given array {3, 5, 1, 6, 0}:
+
+Pass 1: We need to find the largest element (6) and swap it with the last element (0). This requires n-1-0 = 4 comparisons.
+Pass 2: We need to find the largest element among the remaining 4 elements (excluding the swapped 6 at the end). This requires n-2-1 = 3 comparisons.
+Pass 3: We need to find the largest element among the remaining 3 elements. This requires n-3-1 = 2 comparisons.
+Pass 4: We only need to find the largest element among the remaining 2 elements. This requires n-4-1 = 1 comparison.
+Therefore, in this specific case, selection sort takes a total of 4 + 3 + 2 + 1 = 10 comparisons (iterations) to sort the array in descending order.
+
+                                                             Assignment 2
+
+Problem 1: given a number, print its binary representation. [easy] 
+Input 1: number = 5 
+Output 1: 101 
+Input 2: number = 10 
+Output 2: 1010 
+ans-> public class BinaryRepresentation {
+
+    public static void main(String[] args) {
+        int number1 = 5;
+        int number2 = 10;
+
+        System.out.println("Binary representation of " + number1 + ": " + toBinary(number1));
+        System.out.println("Binary representation of " + number2 + ": " + toBinary(number2));
+    }
+
+    public static String toBinary(int num) {
+        StringBuilder binaryString = new StringBuilder();
+
+        // Handle negative numbers
+        if (num < 0) {
+            binaryString.append("-");
+            num = Math.abs(num);
+        }
+
+        while (num > 0) {
+            binaryString.append(num % 2);
+            num /= 2;
+        }
+
+        // Prepend leading zeros for positive numbers less than 2^31
+        int leadingZeros = Integer.SIZE - binaryString.length();
+        for (int i = 0; i < leadingZeros; i++) {
+            binaryString.insert(0, "0");
+        }
+
+        return binaryString.reverse().toString();
+    }
+}
+
+Problem 2: given a number ‘n’, predict whether it is a power of two or not. [medium] Input 1: n = 15 
+Output 1: False 
+Input 2: n = 32 
+Output 2: True 
+ans-> public class PowerOfTwo {
+
+    public static void main(String[] args) {
+        int num1 = 15;
+        int num2 = 32;
+
+        System.out.println(num1 + " is power of two: " + isPowerOfTwo1(num1));
+        System.out.println(num2 + " is power of two: " + isPowerOfTwo1(num2));
+    }
+
+    public static boolean isPowerOfTwo1(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+}
+Q3. Problem 1: Given a number. Using bit manipulation, check whether it is odd or even. 
+Input 8, Even 
+3, False
+ans-> public class OddEvenCheck {
+
+    public static void main(String[] args) {
+        int num1 = 8;
+        int num2 = 3;
+
+        System.out.println(num1 + " is even: " + isEven(num1));
+        System.out.println(num2 + " is even: " + isEven(num2));
+    }
+
+    public static boolean isEven(int num) {
+        // Check if the least significant bit (LSB) is 0 using bitwise AND with 1
+        return (num & 1) == 0;
+    }
+}
+Q4. Given a number, count the number of set bits in that number without using an extra space. Note : bit ‘1’ is also known as set bit. 
+Ans-> public class CountSetBits {
+
+    public static void main(String[] args) {
+        int num1 = 9;
+        int num2 = 5;
+
+        System.out.println("Number of set bits in " + num1 + ": " + countSetBits(num1));
+        System.out.println("Number of set bits in " + num2 + ": " + countSetBits(num2));
+    }
+
+    public static int countSetBits(int n) {
+        int count = 0;
+        while (n > 0) {
+            // Isolate the rightmost set bit using bitwise AND with 1
+            count += (n & 1);
+            // Right shift n by 1 bit to move to the next bit
+            n >>= 1;
+        }
+        return count;
+    }
+}
+Q5. Given an integer array, duplicates are present in it in a way that all duplicates appear an even  number of times except one which appears an odd number of times. Find that odd appearing  element in linear time and without using any extra memory. 
+For example, 
+Input : arr[] = [4, 3, 6, 2, 6, 4, 2, 3, 4, 3, 3] 
+Output : The odd occurring element is 4.
+ans-> public class FindOddOccurringElement {
+
+    public static void main(String[] args) {
+        int[] arr = {4, 3, 6, 2, 6, 4, 2, 3, 4, 3, 3};
+        int element = findOddOccurring(arr);
+        System.out.println("The odd occurring element is: " + element);
+    }
+
+    public static int findOddOccurring(int[] arr) {
+        int result = 0;
+        for (int num : arr) {
+            // XOR with each element. XOR of same elements cancels them out, leaving the odd occurring element.
+            result ^= num;
+        }
+        return result;
+    }
+}
+
+
+
+                                                            
